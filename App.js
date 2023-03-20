@@ -1,8 +1,10 @@
-import { SafeAreaView, Text } from 'react-native';
+import WebviewProvider from './contexts/WebviewContext';
 import ChooserPage from './pages/ChooserPage';
 
 export default function App() {
   return (
-    <ChooserPage/>
+    <WebviewProvider>
+      <ChooserPage/>
+    </WebviewProvider>
   );
 }

@@ -1,19 +1,19 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import SimpleButton from '../components/SimpleButton';
 import Carousel from '../components/Carousel';
 
 const ChooserPage = () => {
-
-
   return (
-    <View style={styles.body}>
+    <SafeAreaView style={styles.body}>
+      <StatusBar hidden/>
       <View style={styles.container}>
         <Text style={styles.title}>CHOOSE YOUR MINIFIG</Text>
         <Carousel/>
         <SimpleButton style={styles.button} title='Choose Figure'/>
       </View>
-    </View>
+      
+    </SafeAreaView>
   )
 }
 

@@ -5,16 +5,25 @@ import CarouselItem from './CarouselItem';
 
 const DATA = [
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
+    id: '1',
+    header: 'First Item',
+    link: 'https://reactnative.dev/'
   },
   {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
+    id: '2',
+    header: 'Second Item',
   },
   {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
+    id: '3',
+    header: 'Third Item',
+  },
+  {
+    id: '4',
+    header: 'Fourth Item',
+  },
+  {
+    id: '5',
+    header: 'Fifth Item',
   },
 ];
 
@@ -23,8 +32,12 @@ const Carousel = () => {
     <View style={styles.container}>
       <FlatList data={DATA} 
         renderItem={({item}) => 
-          <CarouselItem key={item.id} data={item}/>
+          <CarouselItem key={item.id} item={item}/>
         }
+        horizontal
+        pagingEnabled snapToAlignment='center'
+        keyExtractor={item => item.id}
+        
       />
     </View>
   )
