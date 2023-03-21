@@ -5,6 +5,7 @@ import ChooserPage from './pages/ChooserPage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import FormPage from './pages/FormPage';
+import SummaryPage from './pages/SummaryPage';
 
 export default function App() {
   const RootStack = createStackNavigator();
@@ -17,7 +18,7 @@ export default function App() {
           <RootStack.Navigator screenOptions={{headerShown: false}}>
             <RootStack.Screen name="Chooser" component={ChooserPage} />
             <RootStack.Screen name="Form" component={FormPage} />
-            <RootStack.Screen name="Summary" component={ChooserPage} />
+            <RootStack.Screen name="Summary" component={SummaryPage} />
           </RootStack.Navigator>
         </NavigationContainer>
       </BasketProvider>

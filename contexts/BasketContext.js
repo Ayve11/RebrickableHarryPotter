@@ -5,6 +5,7 @@ const BasketContext = React.createContext({
   setMinifig: () => {},
   personalData: null,
   setPersonalData: () => {},
+  clear: () => {},
 });
 
 const BasketProvider = ({ children }) => {
@@ -17,8 +18,20 @@ const BasketProvider = ({ children }) => {
     state: '',
     zipCode: '',
   });
+
+  const clear = () => {
+    setMinifig(null);
+    setPersonalData({
+      fullName: '',
+      email: '',
+      address: '',
+      city: '',
+      state: '',
+      zipCode: '',
+    });
+  }
   return (
-    <BasketContext.Provider value={{ minifig, setMinifig, personalData, setPersonalData}}>
+    <BasketContext.Provider value={{ minifig, setMinifig, personalData, setPersonalData, clear}}>
       {children}
     </BasketContext.Provider>
   )

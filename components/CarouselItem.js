@@ -38,7 +38,9 @@ const styles = StyleSheet.create({
     width: ITEM_LENGTH,
     height: ITEM_LENGTH,
     justifyContent: 'center',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    borderWidth: 10,
+    borderColor: 'white'
   },
   itemImage: {
     width: '50%',
@@ -60,5 +62,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 13.16,
     elevation: 15,
+    borderColor: 'orange',
+    borderWidth: 10
   }
 });

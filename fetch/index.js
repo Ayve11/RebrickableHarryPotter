@@ -17,3 +17,18 @@ export const getMinifigs = () => {
     console.error(error);
   });
 }
+
+export const getMinifigParts = (setNum) => {
+  const url = `${ROOT_URL}/lego/minifigs/${setNum}/parts`;
+  return fetch(url, {
+    method: 'GET',
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": `key ${API_KEY}`
+    },
+  }).then(response => response.json())
+  .catch(error => {
+    console.error(error);
+  });
+}
