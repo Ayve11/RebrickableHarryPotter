@@ -9,13 +9,16 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-navigation/stack": "^6.3.16",
     "expo": "~48.0.6",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
     "react-native": "0.71.3",
     "react-native-dotenv": "^3.4.8",
     "react-native-paper": "^5.5.0",
-    "react-native-webview": "^11.26.1"
+    "react-native-webview": "^11.26.1",
+    "react-navigation": "^4.4.4",
+    "validator": "^13.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

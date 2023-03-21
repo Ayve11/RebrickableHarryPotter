@@ -6,13 +6,13 @@ import { getMinifigs } from '../fetch';
 import RandomGenerator from '../utils/RandomGenerator';
 import { BasketContext } from '../contexts/BasketContext';
 
-const ChooserPage = () => {
+const ChooserPage = ({ navigation }) => {
   const [minifigs, setMinifigs] = React.useState([]);
-  const {minifig} = React.useContext(BasketContext);
+  const { minifig } = React.useContext(BasketContext);
 
   const getAndSetMinifigs = async () => {
     let minifigs = await getMinifigs();
-    if(minifigs){
+    if (minifigs) {
       let chosenFigs = chooseMinifigs(minifigs);
       console.log(chosenFigs);
       setMinifigs(chosenFigs);
@@ -27,10 +27,12 @@ const ChooserPage = () => {
     <SafeAreaView style={styles.body}>
       <View style={styles.container}>
         <Text style={styles.title}>CHOOSE YOUR MINIFIG</Text>
-        <Carousel items={minifigs}/>
-        <SimpleButton style={[styles.button, !minifig ? styles.inactive : null]} title='Choose Figure' disabled={!minifig}/>
+        <Carousel items={minifigs} />
+        <SimpleButton style={[!minifig ? styles.inactive : null]}
+          title='Choose Figure' disabled={!minifig}
+          onPress={() => navigation.navigate("Form")} />
       </View>
-      
+
     </SafeAreaView>
   )
 }
@@ -55,9 +57,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
-  button: {
-    width: '50%',
-  },
   inactive: {
     'backgroundColor': 'grey'
   }
@@ -65,11 +64,11 @@ const styles = StyleSheet.create({
 
 const chooseMinifigs = (data) => {
   let chosenFigs = [];
-  for(let i=0; i<5; i++){
+  for (let i = 0; i < 5; i++) {
     let chosenFig = null;
-    while(chosenFig === null){
+    while (chosenFig === null) {
       let fig = data.results[RandomGenerator(data.count)];
-      if(fig.set_img_url && !chosenFigs.find(f => f.set_num === fig.set_num)){
+      if (fig.set_img_url && !chosenFigs.find(f => f.set_num === fig.set_num)) {
         chosenFig = fig;
       }
     }
