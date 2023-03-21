@@ -5,19 +5,19 @@ import validator from 'validator';
 const {width} = Dimensions.get('window');
 const FORM_WIDTH = width * 0.8; 
 
-export default function FormInput ({name, label, onChange, textContentType, ...props}) {
-  const [error, setError] = React.useState(false);
+export default function FormInput ({name, label, onChange, onError, textContentType, ...props}) {
+  const [errors, setErrors] = React.useState([]);
   const handleInputValueChange = (text) => {
-    const isError = validate(textContentType, text);
-    console.log(isError);
-    setError(isError);
     onChange(name, text);
+    let newErrors = validateField(textContentType, text);
+    setErrors(newErrors);
+    onError(name, newErrors.length > 0);
   };
-  console.log(error);
   return (
     <View>
       <Text style={styles.label}>{label}</Text>
-      <TextInput style={[styles.input, error ? styles.error : null ]} onChangeText={handleInputValueChange} {...props}/>
+      <TextInput style={[styles.input ]} onChangeText={handleInputValueChange} {...props}/>
+      <Text style={styles.helperText}>{errors.toString()}</Text>
     </View>
   )
 }
@@ -35,24 +35,32 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     padding: 10
   },
-  error: {
-    color: 'red'
+  helperText: {
+    color: 'red',
+    height: 24,
+    fontSize: 14,
+    overflow: 'hidden'
   }
 });
 
-const validate = (type, value) => {
+const validateField = (type, value) => {
+  let errors = [];
+  if(validator.isEmpty(value)) errors.push("Field must not be empty");
+  if(!validator.isLength(value, {max: 50})) errors.push("Field is too long");
   switch(type){
     case 'name':
     case 'addressCity':
     case 'addressState':
-      return validator.isAlpha(value) && !validator.isEmpty(value)
-        &&  validator.isLength(value, {max: 50})
+      if(!validator.isAlpha(value)) errors.push("Field must contain only letters");
+      break;
     case 'streetAddressLine1':
-      return validator.isAlphanumeric(value) && !validator.isEmpty(value)
-      &&  validator.isLength(value, {max: 50})
+      if(!validator.isAlphanumeric(value)) errors.push("Field must contain only letters and digits");
+      break;
     case 'postalCode':
-      return validator.isPostalCode(value) && !validator.isEmpty(value)
+      if(!validator.isPostalCode(value, 'PL')) errors.push("Field is not a valid zip code");
+      break;
     case 'emailAddress':
-      return validator.isEmail(value) && !validator.isEmpty(value)
+      if(!validator.isEmail(value)) errors.push("Field is not a valid email");
   }
+  return errors;
 }

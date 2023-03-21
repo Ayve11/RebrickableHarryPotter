@@ -12,7 +12,6 @@ const CarouselItem = ({item}) => {
   const {minifig, setMinifig} = React.useContext(BasketContext);
   
   const handlePress = () => {
-    console.log(item);
     if(minifig?.setNum !== item.set_num){
       setMinifig(item);
     }

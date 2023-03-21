@@ -9,7 +9,14 @@ const BasketContext = React.createContext({
 
 const BasketProvider = ({ children }) => {
   const [minifig, setMinifig] = React.useState(null);
-  const [personalData, setPersonalData] = React.useState(null);
+  const [personalData, setPersonalData] = React.useState({
+    fullName: '',
+    email: '',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+  });
   return (
     <BasketContext.Provider value={{ minifig, setMinifig, personalData, setPersonalData}}>
       {children}

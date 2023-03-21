@@ -14,7 +14,6 @@ const ChooserPage = ({ navigation }) => {
     let minifigs = await getMinifigs();
     if (minifigs) {
       let chosenFigs = chooseMinifigs(minifigs);
-      console.log(chosenFigs);
       setMinifigs(chosenFigs);
     }
   }
