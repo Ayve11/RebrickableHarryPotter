@@ -1,43 +1,19 @@
 import * as React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
 import CarouselItem from './CarouselItem';
 
+const {width} = Dimensions.get('window');
 
-const DATA = [
-  {
-    id: '1',
-    header: 'First Item',
-    link: 'https://reactnative.dev/'
-  },
-  {
-    id: '2',
-    header: 'Second Item',
-  },
-  {
-    id: '3',
-    header: 'Third Item',
-  },
-  {
-    id: '4',
-    header: 'Fourth Item',
-  },
-  {
-    id: '5',
-    header: 'Fifth Item',
-  },
-];
-
-const Carousel = () => {
+const Carousel = ({items}) => {
   return (
     <View style={styles.container}>
-      <FlatList data={DATA} 
+      <FlatList data={items} 
         renderItem={({item}) => 
-          <CarouselItem key={item.id} item={item}/>
+          <CarouselItem item={item}/>
         }
         horizontal
         pagingEnabled snapToAlignment='center'
-        keyExtractor={item => item.id}
-        
+        keyExtractor={item => item.name}
       />
     </View>
   )
@@ -47,6 +23,11 @@ export default Carousel;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    // flexDirection: 'row',
+    // textAlign: 'center',
+    // verticalAlign: 'center',
+    // alignContent: 'center',
+    height: width
+    // flexDirection: 'row'
   },
 });

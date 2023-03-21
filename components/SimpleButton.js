@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-const SimpleButton = ({title, onPress, style}) => {
+const SimpleButton = ({title, onPress, style, ...props}) => {
 
   return (
-    <TouchableOpacity style={[styles.button, style]} onPress={onPress}>
+    <TouchableOpacity style={[styles.button, style]} onPress={onPress} {...props}>
       <Text style={styles.text}>{title.toUpperCase()}</Text>
     </TouchableOpacity>
   )

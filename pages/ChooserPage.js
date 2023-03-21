@@ -1,16 +1,34 @@
 import * as React from 'react';
-import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import SimpleButton from '../components/SimpleButton';
 import Carousel from '../components/Carousel';
+import { getMinifigs } from '../fetch';
+import RandomGenerator from '../utils/RandomGenerator';
+import { BasketContext } from '../contexts/BasketContext';
 
 const ChooserPage = () => {
+  const [minifigs, setMinifigs] = React.useState([]);
+  const {minifig} = React.useContext(BasketContext);
+
+  const getAndSetMinifigs = async () => {
+    let minifigs = await getMinifigs();
+    if(minifigs){
+      let chosenFigs = chooseMinifigs(minifigs);
+      console.log(chosenFigs);
+      setMinifigs(chosenFigs);
+    }
+  }
+
+  React.useEffect(() => {
+    getAndSetMinifigs()
+  }, [])
+
   return (
     <SafeAreaView style={styles.body}>
-      <StatusBar hidden/>
       <View style={styles.container}>
         <Text style={styles.title}>CHOOSE YOUR MINIFIG</Text>
-        <Carousel/>
-        <SimpleButton style={styles.button} title='Choose Figure'/>
+        <Carousel items={minifigs}/>
+        <SimpleButton style={[styles.button, !minifig ? styles.inactive : null]} title='Choose Figure' disabled={!minifig}/>
       </View>
       
     </SafeAreaView>
@@ -39,5 +57,23 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '50%',
+  },
+  inactive: {
+    'backgroundColor': 'grey'
   }
 });
+
+const chooseMinifigs = (data) => {
+  let chosenFigs = [];
+  for(let i=0; i<5; i++){
+    let chosenFig = null;
+    while(chosenFig === null){
+      let fig = data.results[RandomGenerator(data.count)];
+      if(fig.set_img_url && !chosenFigs.find(f => f.set_num === fig.set_num)){
+        chosenFig = fig;
+      }
+    }
+    chosenFigs.push(chosenFig)
+  }
+  return chosenFigs;
+}
